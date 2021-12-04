@@ -8,6 +8,8 @@ driver.get(url='https://en.wikipedia.org/wiki/Main_Page')
 
 article_count = driver.find_element(By.CSS_SELECTOR, '#articlecount a')
 
-article_count.click()
+# article_count.click()
+
+driver.find_element(By.LINK_TEXT, article_count.text).click()
 
 # driver.quit()
