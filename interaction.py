@@ -6,7 +6,7 @@ driver = webdriver.Chrome(executable_path=chrome_driver_path)
 
 driver.get(url='https://en.wikipedia.org/wiki/Main_Page')
 
-num_of_articles = driver.find_element(By.XPATH, '//*[@id="articlecount"]/a[1]')
-print(num_of_articles.text)
+article_count = driver.find_element(By.CSS_SELECTOR, '#articlecount a')
+print(article_count.text)
 
 driver.quit()
