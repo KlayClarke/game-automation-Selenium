@@ -5,8 +5,20 @@ chrome_driver_path = '/Users/klayclarke/Desktop/Development/chromedriver'
 driver = webdriver.Chrome(executable_path=chrome_driver_path)
 
 driver.get(url='https://www.python.org/')
-all_dates = driver.find_elements(By.CSS_SELECTOR, 'li time')
-event_dates = all_dates[-5:]
-event_dates_text = [date.text for date in event_dates]
-print(event_dates_text)
+
+event_name_elements = driver.find_elements(By.CSS_SELECTOR, '.event-widget li a')
+event_names = [event.text for event in event_name_elements]
+event_date_elements = driver.find_elements(By.CSS_SELECTOR, '.event-widget li time')
+event_dates = [date.text for date in event_date_elements]
+
+event_info = {}
+for i in range(len(event_names)):
+    new_dict = {
+        i: {'time': event_dates[i],
+            'name': event_names[i]}
+    }
+    event_info.update(new_dict)
+
+print(event_info)
+
 driver.quit()
