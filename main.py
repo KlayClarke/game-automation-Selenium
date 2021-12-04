@@ -12,12 +12,12 @@ event_date_elements = driver.find_elements(By.CSS_SELECTOR, '.event-widget li ti
 event_dates = [date.text for date in event_date_elements]
 
 event_info = {}
+
 for i in range(len(event_names)):
-    new_dict = {
-        i: {'time': event_dates[i],
-            'name': event_names[i]}
+    event_info[i] = {
+        'time': event_dates[i],
+        'name': event_names[i]
     }
-    event_info.update(new_dict)
 
 print(event_info)
 
