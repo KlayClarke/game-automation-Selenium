@@ -15,11 +15,26 @@ driver.get(url='http://orteil.dashnet.org/experiments/cookie/')
 
 cookie = driver.find_element(By.ID, 'cookie')
 
-while True:
-    cookie.click()
+upgrade_ids = ['buyCursor', 'buyGrandma', 'buyFactory', 'buyMine', 'buyShipment',
+               'buyAlchemy lab', 'buyPortal', 'buyTime machine', 'buyElder Pledge']
+
+available_upgrades = []
+unavailable_upgrades = []
+
+
+def check_upgrades():
+    for id in upgrade_ids:
+        element = driver.find_element(By.ID, id)
+        element_class = element.get_attribute('class')
+        if element_class == 'grayed':
+            unavailable_upgrades.append(element)
+        else:
+            available_upgrades.append(element)
+
+print(available_upgrades)
+print(unavailable_upgrades)
 
 # driver.quit()
-
 
 #TODO: every 5 seconds, check right upgrade pane for available upgrades
 #TODO: purchase the most expensive available upgrade
