@@ -1,19 +1,26 @@
+import sched, time
+import selenium.webdriver
 from selenium import webdriver
 from selenium.webdriver.common.by import By
 from selenium.webdriver.common.keys import Keys
+from selenium.common.exceptions import StaleElementReferenceException, ElementNotInteractableException
+
+s = sched.scheduler(time.time, time.sleep)
 
 chrome_driver_path = '/Users/klayclarke/Desktop/Development/chromedriver'
 driver = webdriver.Chrome(executable_path=chrome_driver_path)
+action = webdriver.ActionChains(driver)
 
-driver.get(url='http://secure-retreat-92358.herokuapp.com/')
+driver.get(url='http://orteil.dashnet.org/experiments/cookie/')
 
-first_name = driver.find_element(By.NAME, 'fName')
-first_name.send_keys('Klay')
-last_name = driver.find_element(By.NAME, 'lName')
-last_name.send_keys('Clarke')
-email = driver.find_element(By.NAME, 'email')
-email.send_keys('testing@test.test')
+cookie = driver.find_element(By.ID, 'cookie')
 
-email.send_keys(Keys.ENTER)
+while True:
+    cookie.click()
 
 # driver.quit()
+
+
+#TODO: every 5 seconds, check right upgrade pane for available upgrades
+#TODO: purchase the most expensive available upgrade
+#TODO: compare the upgrade to your cookie count to gauge availability
