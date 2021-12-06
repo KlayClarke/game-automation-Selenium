@@ -1,4 +1,5 @@
 import sched, time
+from threading import Timer
 import selenium.webdriver
 from selenium import webdriver
 from selenium.webdriver.common.by import By
@@ -15,27 +16,40 @@ driver.get(url='http://orteil.dashnet.org/experiments/cookie/')
 
 cookie = driver.find_element(By.ID, 'cookie')
 
-upgrade_ids = ['buyCursor', 'buyGrandma', 'buyFactory', 'buyMine', 'buyShipment',
-               'buyAlchemy lab', 'buyPortal', 'buyTime machine', 'buyElder Pledge']
+upgrades = {}
+upgrade_prices = {}
 
-available_upgrades = []
-unavailable_upgrades = []
+# try to put all upgrade attributes in one big dict
+list_of_upgrades = driver.find_elements(By.CSS_SELECTOR, '#store div')
+for upgrade in list_of_upgrades:
+    # get all upgrade ids
+    upgrade_id = upgrade.get_attribute('id')
+    # get all upgrade prices
+    try:
+        upgrade_price = int(upgrade.text.split('\n')[0].split('-')[1])
+    except ValueError:
+        upgrade_price = upgrade.text.split('\n')[0].split('-')[1].replace(',', '')
+    except IndexError:
+        upgrade_price = 0
+    print(upgrade_price)
+    # place upgrade ids and prices in dict
+    upgrade_dict_entry = {
+        upgrade_id: {
+            'price': upgrade_price,
+            'element': upgrade
+        }
+    }
+    upgrades.update(upgrade_dict_entry)
 
 
-def check_upgrades():
-    for id in upgrade_ids:
-        element = driver.find_element(By.ID, id)
-        element_class = element.get_attribute('class')
-        if element_class == 'grayed':
-            unavailable_upgrades.append(element)
-        else:
-            available_upgrades.append(element)
-
-print(available_upgrades)
-print(unavailable_upgrades)
+print(upgrades)
 
 # driver.quit()
 
-#TODO: every 5 seconds, check right upgrade pane for available upgrades
-#TODO: purchase the most expensive available upgrade
-#TODO: compare the upgrade to your cookie count to gauge availability
+# TODO: get upgrade item ids
+# TODO: get all upgrade items b tags - isolate price
+# TODO: create dict of store items and prices
+# TODO: get current cookie count
+# TODO: isolate items that we can afford
+# TODO: purchase most expensive upgrade we can afford
+# TODO: rerun this every five seconds for five minutes
