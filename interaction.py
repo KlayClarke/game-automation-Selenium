@@ -14,8 +14,8 @@ cookie = driver.find_element(By.ID, 'cookie')
 
 upgrades = {}
 
-# try to put all upgrade attributes in one big dict
 list_of_upgrades = driver.find_elements(By.CSS_SELECTOR, '#store div')
+# try to put all upgrade attributes in one big dict
 for upgrade in list_of_upgrades:
     # get all upgrade ids
     upgrade_id = upgrade.get_attribute('id')
@@ -64,6 +64,7 @@ while run_game:
         in_five_sec = time.time() + 5
     # after five minutes, stop game
     if time.time() > in_five_min:
+        print(f'Cookies per sec: {cookie_count}')
         run_game = False
         driver.quit()
 
