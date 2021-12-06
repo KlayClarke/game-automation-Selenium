@@ -56,17 +56,16 @@ while run_game:
             key_price = key
             if cookie_count > key_price:
                 upgrade_prices.append(key_price)
-    #     # click most expensive available upgrade
-    #     most_expensive_available_upgrade = upgrade_prices[-1]
-    #     time.sleep(1)
-    #     most_expensive_id = upgrades[most_expensive_available_upgrade]['id']
-    #     button = driver.find_element(By.ID, most_expensive_id)
-    #     button.click()
-    #     in_five_sec = time.time() + 5
-    #
-    # if time.time() > in_five_min:
-    #     run_game = False
-    #     driver.quit()
+        # click most expensive available upgrade
+        most_expensive_available_upgrade = upgrade_prices[-1]
+        most_expensive_id = upgrades[most_expensive_available_upgrade]['id']
+        button = driver.find_element(By.ID, most_expensive_id)
+        button.click()
+        in_five_sec = time.time() + 5
+
+    if time.time() > in_five_min:
+        run_game = False
+        driver.quit()
 
 # TODO: get upgrade item ids
 # TODO: get all upgrade items b tags - isolate price
