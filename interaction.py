@@ -42,7 +42,6 @@ run_game = True
 # run game - click nonstop
 while run_game:
     cookie.click()
-
     # this code should run every 5 seconds
     if time.time() > in_five_sec:
         upgrade_prices = []
@@ -61,8 +60,9 @@ while run_game:
         most_expensive_id = upgrades[most_expensive_available_upgrade]['id']
         button = driver.find_element(By.ID, most_expensive_id)
         button.click()
+        # reset timer
         in_five_sec = time.time() + 5
-
+    # after five minutes, stop game
     if time.time() > in_five_min:
         run_game = False
         driver.quit()
